@@ -30,4 +30,5 @@ let createDatabaseUsing store =
         new LiteDatabase(memoryStream, mapper)
     | Store.LocalDatabase -> 
         let dbFile = Environment.databaseFilePath
-        new LiteDatabase(dbFile, mapper)
+        let cnn = ConnectionString(sprintf "filename=%s; mode=Exclusive" dbFile)
+        new LiteDatabase(cnn, mapper)
